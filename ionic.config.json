@@ -1,0 +1,7 @@
+{
+  "name": "compoundInterest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
