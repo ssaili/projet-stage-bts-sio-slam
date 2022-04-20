@@ -23,10 +23,10 @@
 
   <ion-item>
     <ion-label>Fréquence des versements</ion-label>
-    <ion-select (ionChange)="selectDepositFrequency($event)" placeholder="Veuillez sélectionner une fréquence" [(ngModel)]="depositFrequency">
-      <ion-select-option [value]="mois">Tous les mois</ion-select-option>
-      <ion-select-option [value]="trimestre">Tous les trimestres</ion-select-option>
-      <ion-select-option [value]="an">Tous les ans</ion-select-option>
+    <ion-select (ionChange)="selectDepositFrequency($event)" placeholder="Veuillez sélectionner une fréquence">
+      <ion-select-option value="mois">Tous les mois</ion-select-option>
+      <ion-select-option value="trimestre">Tous les trimestres</ion-select-option>
+      <ion-select-option value="an">Tous les ans</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -37,12 +37,12 @@
 
   <ion-item>
     <ion-label>Fréquence de calcul des intérêts</ion-label>
-    <ion-select (ionChange)="selectInterestFrequency($event)" placeholder="Veuillez sélectionner une fréquence" [(ngModel)]="interestFrequency">
-      <ion-select-option [value]="jour">Tous les jours</ion-select-option>
-      <ion-select-option [value]="mois">Tous les mois</ion-select-option>
-      <ion-select-option [value]="trimestre">Tous les trimestres</ion-select-option>
-      <ion-select-option [value]="semestre">Tous les semestres</ion-select-option>
-      <ion-select-option [value]="an">Tous les ans</ion-select-option>
+    <ion-select (ionChange)="selectInterestFrequency($event)" placeholder="Veuillez sélectionner une fréquence">
+      <ion-select-option value="jour">Tous les jours</ion-select-option>
+      <ion-select-option value="mois">Tous les mois</ion-select-option>
+      <ion-select-option value="trimestre">Tous les trimestres</ion-select-option>
+      <ion-select-option value="semestre">Tous les semestres</ion-select-option>
+      <ion-select-option value="an">Tous les ans</ion-select-option>
     </ion-select>
   </ion-item>
 
