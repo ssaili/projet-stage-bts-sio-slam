@@ -12,37 +12,42 @@ export class HomePage implements OnInit {
     depositAmount = 10;
     depositFrequency: any = "mois";
     duration = 10;
-    interestFrequency: any = "trimestre";
+    interestFrequency: any = "trimestres";
     allResults = [];
     result: number;
+    totalInterest: number;
 
     constructor() {
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     selectInterestFrequency(event) {
         this.interestFrequency = event.detail.value;
+        this.submit;
     }
 
     selectDepositFrequency(event) {
         this.depositFrequency = event.detail.value;
+        this.submit;
     }
 
-    submit() {
+    if (this.initialInvestment && this.interestRate && this.duration){
+    submit(event) {
         let i = 1;
         let result = this.initialInvestment;
 
         let dailyRate = this.interestRate / 36500;
         let customRate;
-        if (this.interestFrequency === "mois") {
+        if (this.interestFrequency === "jours") {
+            customRate = dailyRate;
+        } else if (this.interestFrequency === "mois") {
             customRate = dailyRate * 30;
-        } else if (this.interestFrequency === "trimestre") {
+        } else if (this.interestFrequency === "trimestres") {
             customRate = dailyRate * 90;
-        } else if (this.interestFrequency === "semestre") {
-            customRate = dailyRate * 182;
-        } else if (this.interestFrequency === "an") {
+        } else if (this.interestFrequency === "semestres") {
+            customRate = dailyRate * 180;
+        } else if (this.interestFrequency === "ans") {
             customRate = dailyRate * 365;
         }
 
@@ -50,11 +55,11 @@ export class HomePage implements OnInit {
 
             if (this.interestRate
                 && (
-                    (i % 1 === 0 && this.interestFrequency === "jour")
+                    (i % 1 === 0 && this.interestFrequency === "jours")
                     || (i % 30 === 0 && this.interestFrequency === "mois")
-                    || (i % 90 === 0 && this.interestFrequency === "trimestre")
-                    || (i % 182 === 0 && this.interestFrequency === "semestre")
-                    || (i % 365 === 0 && this.interestFrequency === "an"))
+                    || (i % 90 === 0 && this.interestFrequency === "trimestres")
+                    || (i % 180 === 0 && this.interestFrequency === "semestres")
+                    || (i % 365 === 0 && this.interestFrequency === "ans"))
             ) {
                 result += result * customRate;
             }
@@ -62,8 +67,8 @@ export class HomePage implements OnInit {
             if (this.depositAmount
                 && (
                     (i % 30 === 0 && this.depositFrequency === "mois")
-                    || (i % 90 === 0 && this.depositFrequency === "trimestre")
-                    || (i % 365 === 0 && this.depositFrequency === "an"))
+                    || (i % 90 === 0 && this.depositFrequency === "trimestres")
+                    || (i % 365 === 0 && this.depositFrequency === "ans"))
             ) {
                 result += this.depositAmount
             }
@@ -74,6 +79,8 @@ export class HomePage implements OnInit {
             this.allResults.push(result);
         } while (i < this.duration * 365);
 
-        this.result = result;
+        this.result = Math.round((result) * 100) / 100;
+        this.totalInterest = Math.round((result - this.initialInvestment) * 100) / 100;
     }
+}
 }

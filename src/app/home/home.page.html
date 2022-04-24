@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title>Calculateur d'intérêts composés</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,48 +8,64 @@
 
   <ion-item>
     <ion-label position="floating">Investissement initial</ion-label>
-    <ion-input type="number" [(ngModel)]="initialInvestment"></ion-input>
+    <ion-input type="number" (keyup)="submit($event)" [(ngModel)]="initialInvestment"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Taux d'intérêt</ion-label>
-    <ion-input type="number" [(ngModel)]="interestRate"></ion-input>
+    <ion-input type="number" (keyup)="submit($event)" [(ngModel)]="interestRate"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Montant des versements</ion-label>
-    <ion-input type="number" [(ngModel)]="depositAmount"></ion-input>
+    <ion-input type="number" (keyup)="submit($event)" [(ngModel)]="depositAmount"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>Fréquence des versements</ion-label>
     <ion-select (ionChange)="selectDepositFrequency($event)" placeholder="Veuillez sélectionner une fréquence">
       <ion-select-option value="mois">Tous les mois</ion-select-option>
-      <ion-select-option value="trimestre">Tous les trimestres</ion-select-option>
-      <ion-select-option value="an">Tous les ans</ion-select-option>
+      <ion-select-option value="trimestres">Tous les trimestres</ion-select-option>
+      <ion-select-option value="ans">Tous les ans</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Durée</ion-label>
-    <ion-input type="number" [(ngModel)]="duration"></ion-input>
+    <ion-input type="number" (keyup)="submit($event)" [(ngModel)]="duration"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>Fréquence de calcul des intérêts</ion-label>
     <ion-select (ionChange)="selectInterestFrequency($event)" placeholder="Veuillez sélectionner une fréquence">
-      <ion-select-option value="jour">Tous les jours</ion-select-option>
+      <ion-select-option value="jours">Tous les jours</ion-select-option>
       <ion-select-option value="mois">Tous les mois</ion-select-option>
-      <ion-select-option value="trimestre">Tous les trimestres</ion-select-option>
-      <ion-select-option value="semestre">Tous les semestres</ion-select-option>
-      <ion-select-option value="an">Tous les ans</ion-select-option>
+      <ion-select-option value="trimestres">Tous les trimestres</ion-select-option>
+      <ion-select-option value="semestres">Tous les semestres</ion-select-option>
+      <ion-select-option value="ans">Tous les ans</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-button expand="full" (click)="submit()">Calculer</ion-button>
 
-  <div>
-    {{result}}
-  </div>
+  <section>
+    <div class="result">
+        <h2>Résultat</h2>
+
+        <p>Valeur totale de votre placement: {{result}} €</p>
+
+        <p>Total des intérêts gagnés: {{totalInterest}} €</p>
+
+        <p>Votre placement initial de {{initialInvestment}} €, à un taux d’intérêt annualisé de {{interestRate}} % vaudra {{result}} € après {{duration}} année(s) si l’intérêt est calculé tous les {{interestFrequency}}</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="graphic">
+
+        <h2>Graphique</h2>
+
+    </div>
+  </section>
 
 </ion-content>
