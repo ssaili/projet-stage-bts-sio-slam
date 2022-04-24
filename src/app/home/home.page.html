@@ -8,17 +8,17 @@
 
   <ion-item>
     <ion-label position="floating">Investissement initial</ion-label>
-    <ion-input type="number" (keyup)="submit($event)" [(ngModel)]="initialInvestment"></ion-input>
+    <ion-input (keyup)="submit()" [(ngModel)]="initialInvestment" type="number"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Taux d'intérêt</ion-label>
-    <ion-input type="number" (keyup)="submit($event)" [(ngModel)]="interestRate"></ion-input>
+    <ion-input (keyup)="submit()" [(ngModel)]="interestRate" type="number"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Montant des versements</ion-label>
-    <ion-input type="number" (keyup)="submit($event)" [(ngModel)]="depositAmount"></ion-input>
+    <ion-input (keyup)="submit()" [(ngModel)]="depositAmount" type="number"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -32,7 +32,7 @@
 
   <ion-item>
     <ion-label position="floating">Durée</ion-label>
-    <ion-input type="number" (keyup)="submit($event)" [(ngModel)]="duration"></ion-input>
+    <ion-input (keyup)="submit()" [(ngModel)]="duration" type="number"></ion-input>
   </ion-item>
 
   <ion-item>
