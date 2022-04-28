@@ -52,11 +52,11 @@
     <div class="result">
         <h2>Résultat</h2>
 
-        <p>Valeur totale de votre placement: {{result}} €</p>
+        <p>Valeur totale de votre placement: {{result}}€</p>
 
-        <p>Total des intérêts gagnés: {{totalInterest}} €</p>
+        <p>Total des intérêts gagnés: {{totalInterest}}€</p>
 
-        <p>Votre placement initial de {{initialInvestment}} €, à un taux d’intérêt annualisé de {{interestRate}} % vaudra {{result}} € après {{duration}} année(s) si l’intérêt est calculé tous les {{interestFrequency}}</p>
+        <p>Votre placement initial de {{initialInvestment}}€, à un taux d’intérêt annualisé de {{interestRate}}% vaudra {{result}}€ après {{duration}} année(s) si l’intérêt est calculé tous les {{interestFrequency}}.</p>
     </div>
   </section>
 
@@ -64,6 +64,17 @@
     <div class="graphic">
 
         <h2>Graphique</h2>
+
+        <div class="chart_Box">
+        <canvas baseChart
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [type]="barChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+        </canvas>
+        </div>       
 
     </div>
   </section>
