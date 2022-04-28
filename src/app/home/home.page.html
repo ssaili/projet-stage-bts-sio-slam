@@ -65,16 +65,11 @@
 
         <h2>Graphique</h2>
 
-        <div class="chart_Box">
         <canvas baseChart
-        [data]="barChartData"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [type]="barChartType"
-        (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)">
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [type]="barChartType">
         </canvas>
-        </div>       
 
     </div>
   </section>
