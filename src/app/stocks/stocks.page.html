@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Gains sur actions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h2 class="ion-text-center">Mes données</h2>
+
+  <ion-item>
+    <ion-label>Libellé de l'action</ion-label>
+    <ion-select (ionChange)="selectStock($event)" placeholder="Veuillez sélectionner une action">
+      <ion-select-option value="INTC">Intel</ion-select-option>
+      <ion-select-option value="NVDA">Nvidia</ion-select-option>
+      <ion-select-option value="TSLA">Tesla</ion-select-option>
+      <ion-select-option value="MSFT">Microsoft</ion-select-option>
+      <ion-select-option value="IBM">IBM</ion-select-option>
+      <ion-select-option value="AAPL">Apple</ion-select-option>
+      <ion-select-option value="ORCL">Oracle</ion-select-option>
+      <ion-select-option value="NFLX">Netflix</ion-select-option>
+      <ion-select-option value="PYPL">Paypal</ion-select-option>
+      <ion-select-option value="AMZN">Amazon</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Nombre d'action(s) vendue(s)</ion-label>
+    <ion-input [(ngModel)]="selledStocks" type="number"></ion-input>
+  </ion-item>
+
+  <ion-item button="true" id="purchased-date-input">
+    <ion-label>Date d'achat</ion-label>
+    <ion-text slot="end">{{ purchasedDate }}</ion-text>
+    <ion-popover trigger="purchased-date-input" show-backdrop="false">
+      <ng-template>
+        <ion-datetime
+          #popoverDatetime
+          presentation="date"
+          (ionChange)="selectPurchasedDate($event)"
+        ></ion-datetime>
+      </ng-template>
+    </ion-popover>
+  </ion-item>
+
+  <ion-item button="true" id="selled-date-input">
+    <ion-label>Date de vente</ion-label>
+    <ion-text slot="end">{{ selledDate }}</ion-text>
+    <ion-popover trigger="selled-date-input" show-backdrop="false">
+      <ng-template>
+        <ion-datetime
+          #popoverDatetime
+          presentation="date"
+          (ionChange)="selectSelledDate($event)"
+        ></ion-datetime>
+      </ng-template>
+    </ion-popover>
+  </ion-item>
+
+  <ion-button expand="block" fill="outline" (click)="submit()" [disabled]="!isValid()">Calculer</ion-button>
+
+  <section>
+    <div class="result">
+        <h2 class="ion-text-center">Résultat</h2>
+
+        <p>Prix des actions à l'achat: {{purchasedResult}}€</p>
+
+        <p>Plus/moins value à la vente: {{selledResult}}€</p>
+
+        <p></p>
+    </div>
+  </section>
+
+</ion-content>

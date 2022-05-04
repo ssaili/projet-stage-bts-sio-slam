@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ChartConfiguration, ChartData, ChartEvent, ChartType} from 'chart.js';
+import {ChartData, ChartType} from 'chart.js';
 import {BaseChartDirective} from 'ng2-charts';
 
 @Component({
@@ -11,26 +11,28 @@ export class HomePage implements OnInit {
 
     @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-
+    //Investissement initial
     initialInvestment: number;
-    interestRate: number; // YEARLY
+    //Taux d'intérêt annuel
+    interestRate: number;
+    //Montant des versements
     depositAmount: number;
+    //Fréquence des versements
     depositFrequency: any = "mois";
+    //Durée
     duration: number;
+    //Fréquence de calcul des intérêts
     interestFrequency: any = "trimestres";
-    allResults = [];
+    //Valeur totale du placement
     result: number;
+    //Total des versements effectuées
+    totalDepositAmount = 0;
+    //Total des intérêts gagnés
     totalInterest: number;
 
-    public barChartOptions: ChartConfiguration['options'] = {
+    barChartType: ChartType = 'pie';
+    barChartOptions = {
         responsive: true,
-        // We use these empty structures as placeholders for dynamic theming.
-        scales: {
-            x: {},
-            y: {
-                min: 10
-            }
-        },
         plugins: {
             legend: {
                 display: true,
@@ -41,16 +43,9 @@ export class HomePage implements OnInit {
             }
         }
     } as any;
-    public barChartType: ChartType = 'bar';
-    public barChartPlugins = [];
 
-    public barChartData: ChartData<'bar'> = {
-        labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-        datasets: [
-            {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-            {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-        ]
-    };
+    barChartData: ChartData<'pie'>;
+
 
     constructor() {
     }
@@ -58,11 +53,13 @@ export class HomePage implements OnInit {
     ngOnInit() {
     }
 
+    //Récupère la fréquence de calcul des intérêts
     selectInterestFrequency(event) {
         this.interestFrequency = event.detail.value;
         this.submit();
     }
 
+    //Récupère la fréquence des versements
     selectDepositFrequency(event) {
         this.depositFrequency = event.detail.value;
         this.submit();
@@ -75,7 +72,8 @@ export class HomePage implements OnInit {
 
             let i = 1;
             let result = this.initialInvestment;
-
+        
+            //Calcul le taux en fonction de la fréquence de calcul des intérêts choisi
             let dailyRate = this.interestRate / 36500;
             let customRate;
             if (this.interestFrequency === "jours") {
@@ -90,8 +88,10 @@ export class HomePage implements OnInit {
                 customRate = dailyRate * 365;
             }
 
-            do {
+            this.totalDepositAmount = 0;
 
+            do {
+                //Calcul de la valeur total du placement en fonction de la fréquence de calcul des intérêts choisi
                 if (this.interestRate
                     && (
                         (i % 1 === 0 && this.interestFrequency === "jours")
@@ -103,47 +103,52 @@ export class HomePage implements OnInit {
                     result += result * customRate;
                 }
 
+                //Prise en compte des éventuels versement effectués
                 if (this.depositAmount
                     && (
                         (i % 30 === 0 && this.depositFrequency === "mois")
                         || (i % 90 === 0 && this.depositFrequency === "trimestres")
                         || (i % 365 === 0 && this.depositFrequency === "ans"))
                 ) {
-                    result += this.depositAmount
+                    result += this.depositAmount;
+                    this.totalDepositAmount += this.depositAmount;
                 }
 
                 console.log(result);
+                console.log(this.totalDepositAmount)
 
                 i++;
-                this.allResults.push(result);
-            } while (i < this.duration * 365);
+            } while (i < this.duration * 365);//boucle éxécutée tant que l'on a pas atteint la durrée saisie
 
             this.result = Math.round((result) * 100) / 100;
             this.totalInterest = Math.round((result - this.initialInvestment) * 100) / 100;
         }
+
+        this.updateChart();
+
     }
 
-  // events
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
+    
+    updateChart() {
+        this.barChartData = {
+            labels: ['Investisssement initial', 'Total des intérêts gagnés', 'Total des versements effectués'],
+            datasets: [{
+                label: '',
+                data: [this.initialInvestment, this.totalInterest, this.totalDepositAmount],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(0, 128, 0, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(0, 128, 0, 1)',
+                ],
+                borderWidth: 1
+            }]
+        };
 
-  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public randomize(): void {
-    // Only Change 3 values
-    this.barChartData.datasets[0].data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      Math.round(Math.random() * 100),
-      56,
-      Math.round(Math.random() * 100),
-      40 ];
-
-    this.chart?.update();
-  }
+    }
 
 }

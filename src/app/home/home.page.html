@@ -1,10 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Calculateur d'intérêts composés</ion-title>
+    <ion-title class="ion-text-center">Calculateur d'intérêts composés</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <h2 class="ion-text-center">Mes données</h2>
 
   <ion-item>
     <ion-label position="floating">Investissement initial</ion-label>
@@ -31,7 +33,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Durée</ion-label>
+    <ion-label position="floating">Durée en année(s)</ion-label>
     <ion-input (keyup)="submit()" [(ngModel)]="duration" type="number"></ion-input>
   </ion-item>
 
@@ -46,11 +48,9 @@
     </ion-select>
   </ion-item>
 
-  <ion-button expand="full" (click)="submit()">Calculer</ion-button>
-
   <section>
     <div class="result">
-        <h2>Résultat</h2>
+        <h2 class="ion-text-center">Résultat</h2>
 
         <p>Valeur totale de votre placement: {{result}}€</p>
 
@@ -63,13 +63,15 @@
   <section>
     <div class="graphic">
 
-        <h2>Graphique</h2>
+        <h2 class="ion-text-center">Graphique</h2>
 
-        <canvas baseChart
+        <div class="chart_Box">
+          <canvas baseChart
                 [data]="barChartData"
                 [options]="barChartOptions"
                 [type]="barChartType">
-        </canvas>
+          </canvas>
+        </div>
 
     </div>
   </section>

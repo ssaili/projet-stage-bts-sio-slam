@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Nous contacter</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label position="floating">Votre nom</ion-label>
+    <ion-input type="text" [(ngModel)]="contactName"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Votre adresse mail</ion-label>
+    <ion-input type="email" [(ngModel)]="contactEmail"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" >Votre message</ion-label>
+    <ion-textarea [(ngModel)]="contactMessage"></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" fill="outline" (click)="send()" [disabled]="!isValid()">Envoyer</ion-button>
+
+  <p *ngIf="showMyMessage" class="ion-text-center">Votre message a bien été envoyé. Il sera traité dans les meilleurs délais</p>
+
+</ion-content>
