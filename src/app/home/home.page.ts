@@ -121,7 +121,7 @@ export class HomePage implements OnInit {
             } while (i < this.duration * 365);//boucle éxécutée tant que l'on a pas atteint la durrée saisie
 
             this.result = Math.round((result) * 100) / 100;
-            this.totalInterest = Math.round((result - this.initialInvestment) * 100) / 100;
+            this.totalInterest = Math.round((result - this.initialInvestment - this.totalDepositAmount) * 100) / 100;
         }
 
         this.updateChart();
